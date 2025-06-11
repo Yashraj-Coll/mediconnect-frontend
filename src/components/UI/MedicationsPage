@@ -1,0 +1,310 @@
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import PrescriptionService from '../../services/PrescriptionService';
+import { FaCalendarAlt, FaPills, FaArrowLeft, FaBell, FaBellSlash, FaRegCheckCircle, FaTrashAlt } from 'react-icons/fa';
+import { TbPill } from 'react-icons/tb';
+import Loading from '../components/common/Loading';
+import ErrorAlert from '../components/common/ErrorAlert';
+import PageHeader from '../components/common/PageHeader';
+
+const MedicationsPage = () => {
+  const user = useSelector(state => state.auth.user);
+  const [activeTab, setActiveTab] = useState('current');
+  const [medications, setMedications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [reminderStatus, setReminderStatus] = useState({});
+  const [medicationFilters, setMedicationFilters] = useState({
+    search: '',
+    frequency: ''
+  });
+
+  useEffect(() => {
+    const fetchMedications = async () => {
+      if (!user?.patientId) return;
+      
+      setLoading(true);
+      setError(null);
+      
+      try {
+        let response;
+        if (activeTab === 'current') {
+          response = await PrescriptionService.getActivePrescriptionsForPatient(user.patientId);
+        } else {
+          response = await PrescriptionService.getPrescriptionsByPatientId(user.patientId);
+        }
+        
+        if (response.success) {
+          // Process medications from prescriptions
+          const meds = PrescriptionService.getMedicationsByType(response.data);
+          
+          // Filter medications based on active tab
+          const filteredMeds = activeTab === 'current' 
+            ? meds.filter(med => med.isActive)
+            : meds;
+          
+          // Get remaining days for each prescription
+          const medicationsWithDays = await Promise.all(
+            filteredMeds.map(async med => {
+              try {
+                const daysResponse = await PrescriptionService.getPrescriptionRemainingDays(med.prescriptionId);
+                return {
+                  ...med,
+                  remainingDays: daysResponse.success ? daysResponse.data : null
+                };
+              } catch (err) {
+                console.error(`Error getting remaining days for prescription ${med.prescriptionId}:`, err);
+                return {
+                  ...med,
+                  remainingDays: null
+                };
+              }
+            })
+          );
+          
+          setMedications(medicationsWithDays);
+          
+          // Initialize reminder status
+          const initialReminderStatus = {};
+          medicationsWithDays.forEach(med => {
+            initialReminderStatus[med.id] = false; // Default to no reminder
+          });
+          setReminderStatus(initialReminderStatus);
+        } else {
+          setError(response.error || 'Failed to fetch medications');
+        }
+      } catch (err) {
+        console.error('Error fetching medications:', err);
+        setError('An unexpected error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMedications();
+  }, [user?.patientId, activeTab]);
+
+  const toggleReminder = async (medicationId, prescriptionId) => {
+    try {
+      // Toggle reminder state optimistically
+      setReminderStatus(prev => ({
+        ...prev,
+        [medicationId]: !prev[medicationId]
+      }));
+      
+      // Call API based on new state
+      const isEnabled = !reminderStatus[medicationId];
+      
+      if (isEnabled) {
+        await PrescriptionService.setPrescriptionReminder(prescriptionId);
+      } else {
+        await PrescriptionService.cancelPrescriptionReminder(prescriptionId);
+      }
+    } catch (err) {
+      console.error('Error toggling reminder:', err);
+      
+      // Revert on error
+      setReminderStatus(prev => ({
+        ...prev,
+        [medicationId]: !prev[medicationId]
+      }));
+      
+      // Show error message
+      alert('Failed to update reminder settings. Please try again.');
+    }
+  };
+
+  const getRemainingDaysClass = (days) => {
+    if (days === null || days === undefined) return 'text-gray-500';
+    
+    if (days <= 5) return 'text-red-500';
+    if (days <= 10) return 'text-orange-500';
+    return 'text-green-500';
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setMedicationFilters(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Apply filters to medications
+  const filteredMedications = medications.filter(med => {
+    // Apply search filter
+    if (medicationFilters.search && !med.name.toLowerCase().includes(medicationFilters.search.toLowerCase())) {
+      return false;
+    }
+    
+    // Apply frequency filter
+    if (medicationFilters.frequency && !med.frequency.toLowerCase().includes(medicationFilters.frequency.toLowerCase())) {
+      return false;
+    }
+    
+    return true;
+  });
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <PageHeader 
+        title="Medications"
+        icon={<FaPills className="text-purple-500" />}
+        backLink="/"
+        backText="Back to Dashboard"
+      />
+
+      {/* Tabs */}
+      <div className="mb-6 border-b border-gray-200">
+        <div className="flex space-x-8">
+          <button
+            className={`py-2 px-1 ${
+              activeTab === 'current'
+                ? 'border-b-2 border-purple-500 text-purple-600 font-medium'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+            onClick={() => setActiveTab('current')}
+          >
+            Current Medications
+          </button>
+          <button
+            className={`py-2 px-1 ${
+              activeTab === 'history'
+                ? 'border-b-2 border-purple-500 text-purple-600 font-medium'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+            onClick={() => setActiveTab('history')}
+          >
+            Medication History
+          </button>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+        <h3 className="text-lg font-medium text-gray-800 mb-3">Filters</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
+              Search Medication
+            </label>
+            <input
+              type="text"
+              id="search"
+              name="search"
+              value={medicationFilters.search}
+              onChange={handleFilterChange}
+              placeholder="Search by medication name"
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div>
+            <label htmlFor="frequency" className="block text-sm font-medium text-gray-700 mb-1">
+              Frequency
+            </label>
+            <select
+              id="frequency"
+              name="frequency"
+              value={medicationFilters.frequency}
+              onChange={handleFilterChange}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            >
+              <option value="">All Frequencies</option>
+              <option value="once daily">Once Daily</option>
+              <option value="twice daily">Twice Daily</option>
+              <option value="three times daily">Three Times Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="as needed">As Needed (PRN)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Medication List */}
+      {loading ? (
+        <Loading message="Loading medications..." />
+      ) : error ? (
+        <ErrorAlert message={error} />
+      ) : filteredMedications.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <TbPill className="text-5xl mx-auto text-gray-400 mb-3" />
+          <h3 className="text-xl font-medium text-gray-700 mb-2">No medications found</h3>
+          <p className="text-gray-500">
+            {activeTab === 'current'
+              ? 'You don\'t have any active medications at the moment.'
+              : 'No medication history found.'}
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {filteredMedications.map(medication => (
+            <div key={medication.id} className="bg-white rounded-lg shadow-md p-4">
+              <div className="flex flex-col md:flex-row justify-between">
+                <div className="mb-4 md:mb-0">
+                  <div className="flex items-center">
+                    <FaPills className="text-purple-500 mr-2" />
+                    <h3 className="text-lg font-semibold text-gray-800">{medication.name}</h3>
+                    {medication.isActive && (
+                      <span className="ml-2 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                        Active
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-gray-700 mt-1">{medication.dosage}</p>
+                  <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <FaCalendarAlt className="text-gray-400 mr-2" />
+                      <span>Frequency: {medication.frequency}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <FaRegCheckCircle className="text-gray-400 mr-2" />
+                      <span className={getRemainingDaysClass(medication.remainingDays)}>
+                        {medication.remainingDays !== null 
+                          ? `${medication.remainingDays} days remaining` 
+                          : 'Ongoing'}
+                      </span>
+                    </div>
+                  </div>
+                  {medication.instructions && (
+                    <div className="mt-3 text-sm text-gray-600">
+                      <p><strong>Instructions:</strong> {medication.instructions}</p>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex flex-col space-y-2">
+                  <button 
+                    className={`px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center ${
+                      reminderStatus[medication.id]
+                        ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                        : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                    }`}
+                    onClick={() => toggleReminder(medication.id, medication.prescriptionId)}
+                  >
+                    {reminderStatus[medication.id] ? (
+                      <>
+                        <FaBellSlash className="mr-2" /> Disable Reminders
+                      </>
+                    ) : (
+                      <>
+                        <FaBell className="mr-2" /> Set Reminders
+                      </>
+                    )}
+                  </button>
+                  
+                  {medication.isActive && (
+                    <button className="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-md text-sm font-medium flex items-center justify-center">
+                      <FaArrowLeft className="mr-2" /> Refill Request
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MedicationsPage;

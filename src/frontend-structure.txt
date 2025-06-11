@@ -1,0 +1,92 @@
+Folder PATH listing for volume Windows
+Volume serial number is 68D3-0A2F
+C:.
+¦   App.css
+¦   App.jsx
+¦   frontend-structure.txt
+¦   index.css
+¦   main.jsx
+¦   
++---assets
+¦   ¦   react.svg
+¦   ¦   
+¦   +---images
+¦           dr.pragati.png
+¦           dr.rajat.png
+¦           dr.soumya.png
+¦           dr.sujata.png
+¦           himanshu.png
+¦           prachi.jpg
+¦           saitya.png
+¦           sulagna.jpg
+¦           yashraj.jpg
+¦           
++---components
+¦   ¦   DoctorCard.jsx
+¦   ¦   JitsiMeetComponent.jsx
+¦   ¦   MedicationsCard.jsx
+¦   ¦   VitalSignsCard.jsx
+¦   ¦   
+¦   +---common
+¦   ¦       ErrorAlert.jsx
+¦   ¦       Footer.jsx
+¦   ¦       Header.jsx
+¦   ¦       Loading.jsx
+¦   ¦       Modal.jsx
+¦   ¦       PatientProfilePage.jsx
+¦   ¦       ProfilePhotoComponent.jsx
+¦   ¦       ProtectedRoute.jsx
+¦   ¦       
+¦   +---UI
+¦           MedicationsPage
+¦           VitalSignsPage.jsx
+¦           
++---config
+¦       apiConfig.js
+¦       env.js
+¦       
++---context
+¦       AuthContext.jsx
+¦       PatientContext.jsx
+¦       
++---pages
+¦       AboutPage.jsx
+¦       AiChatPage.jsx
+¦       AppointmentBookingPage.jsx
+¦       BlogPage.jsx
+¦       DoctorDetailPage.jsx
+¦       DoctorListPage.jsx
+¦       HealthRecordsPage.jsx
+¦       HomePage.jsx
+¦       LabTestsPage.jsx
+¦       LoginPage.jsx
+¦       PatientDashboardPage.jsx
+¦       PatientSelectionPage.jsx
+¦       PaymentConfirmationPage.jsx
+¦       PaymentPage.jsx
+¦       RegisterPage.jsx
+¦       ServicesPage.jsx
+¦       SpecialitiesPage.jsx
+¦       VideoConsultationPage.jsx
+¦       
++---services
+¦       ApiService.js
+¦       AppointmentService.js
+¦       DoctorService.js
+¦       HttpClient.js
+¦       MedicalRecordService.js
+¦       PatientService.js
+¦       PrescriptionService.js
+¦       RazorpayService.js
+¦       UserService.js
+¦       VitalSignsService.js
+¦       
++---store
+¦       index.js
+¦       
++---styles
+¦       animations.css
+¦       
++---utils
+        api.js
+        

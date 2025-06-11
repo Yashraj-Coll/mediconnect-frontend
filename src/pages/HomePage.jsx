@@ -58,13 +58,13 @@ const HomePage = () => {
               {/* Hero Image with Decorative Elements */}
               <div className="relative">
                 {/* Main Doctor Image */}
-                <div className="rounded-2xl overflow-hidden shadow-2xl transform hover:-rotate-1 transition duration-500">
+                {/* <div className="rounded-2xl overflow-hidden shadow-2xl transform hover:-rotate-1 transition duration-500">
                   <img 
                     src="/api/placeholder/600/400" 
                     alt="Doctor video consultation"
                     className="w-full h-full object-cover"
                   />
-                </div>
+                </div> */}
                 
                 {/* Floating Element - Video Call Interface */}
                 <div className="absolute -top-8 -right-8 bg-white p-4 rounded-xl shadow-lg transform rotate-3 hover:rotate-0 transition duration-300 animate-float">
@@ -102,36 +102,62 @@ const HomePage = () => {
         </div>
         
         {/* Brands Section */}
-        <div className="container mx-auto px-4 py-8 border-t border-gray-100">
-          <p className="text-center text-gray-500 text-sm mb-8">TRUSTED BY LEADING HEALTHCARE PROVIDERS</p>
+        <div className="container mx-auto px-4 pb-2 border-t border-gray-100">
+          <p className="text-center text-gray-500 text-sm mb-2">TRUSTED BY LEADING HEALTHCARE PROVIDERS</p>
           <div className="flex justify-center flex-wrap gap-x-12 gap-y-6">
+            {/* Apollo Hospitals */}
             <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition">
-              <div className="h-8 w-20 bg-gray-300 rounded"></div>
+              <img 
+                src="src/assets/images/Apollo_Hospitals_Logo.jpg" 
+                alt="Apollo Hospitals" 
+                className="h-8 w-auto object-contain" 
+              />
             </div>
+            {/* Fortis Healthcare */}
             <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition">
-              <div className="h-8 w-24 bg-gray-300 rounded"></div>
+              <img 
+                src="src/assets/images/512px-Fortis_Healthcare_logo.webp" 
+                alt="Fortis Healthcare" 
+                className="h-8 w-auto object-contain" 
+              />
             </div>
+            {/* Max Healthcare */}
             <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition">
-              <div className="h-8 w-16 bg-gray-300 rounded"></div>
+              <img 
+                src="https://imgs.search.brave.com/9NDBQuklQUih698wskVO5mDrNxngnNj15vnv5J9jspI/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNjExMDFhNDNm/YTU4YzY2Yzc0YmYw/M2NiYzA0MmQ4ODAx/YzRlN2IyY2FmZjRh/MDA0ZGZhZWNlN2Fm/NjQwMWI0Yi93d3cu/bWF4aGVhbHRoY2Fy/ZS5pbi8" 
+                alt="Max Healthcare" 
+                className="h-8 w-auto object-contain" 
+              />
             </div>
+            {/* Manipal Hospitals */}
             <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition">
-              <div className="h-8 w-28 bg-gray-300 rounded"></div>
+              <img 
+                src="https://www.narayanahealth.org/assets/images/logo.svg" 
+                alt="Narayana Hospital" 
+                className="h-8 w-auto object-contain" 
+              />
             </div>
+            {/* AIIMS */}
             <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition">
-              <div className="h-8 w-20 bg-gray-300 rounded"></div>
+              <img 
+                src="https://imgs.search.brave.com/N8HbcVCG9bgFyvYAKP6kLupkTroR45nVLKT8HG7Tkjc/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNWE0ZDJhYzE0/OWMzZjIyY2Y0ZGJm/YzNhYjg2YzdiNDY2/ZTBhMzg3MmUyMjVm/YjM0NjM1MzBiMzRk/NjljNmFkZC93d3cu/d29vZGxhbmRzaG9z/cGl0YWwuaW4v" 
+                alt="WoodlandsHospital" 
+                className="h-8 w-auto object-contain" 
+              />
             </div>
           </div>
         </div>
       </div>
 
+
       {/* Services Section */}
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Comprehensive Health Services</h2>
+      <div className="container mx-auto px-4 py-20 md:py-32">
+        <div className="text-center mb-20 mt-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Comprehensive Health Services</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">Everything you need for your health and wellness journey, accessible from anywhere, anytime.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 -mt-8">
           {/* Service Card 1 */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1 card-hover">
             <div className="p-8">
@@ -329,12 +355,12 @@ const HomePage = () => {
 
       {/* Doctor Section */}
       <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Specialist Doctors</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">India's leading medical experts available for video consultations on MediConnect.</p>
-        </div>
+        <div className="text-center mb-20 mt-8">
+ <h2 className="text-3xl md:text-4xl font-bold mb-6">Meet Our Specialist Doctors</h2>
+ <p className="text-gray-600 max-w-2xl mx-auto">India's leading medical experts available for video consultations on MediConnect.</p>
+</div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 -mt-8">
           {/* Doctor Card 1 */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1 card-hover">
             <div className="relative">
@@ -444,15 +470,15 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="text-center mt-12">
-          <button className="bg-white text-purple-600 px-8 py-4 rounded-full border border-purple-200 font-medium hover:shadow-lg transition duration-300 hover:bg-purple-50">
-            View All Doctors <i className="fas fa-arrow-right ml-2"></i>
-          </button>
-        </div>
+        <div className="text-center mt-8">
+ <button className="bg-white text-purple-600 px-8 py-4 rounded-full border border-purple-200 font-medium hover:shadow-lg transition duration-300 hover:bg-purple-50">
+   View All Doctors <i className="fas fa-arrow-right ml-2"></i>
+ </button>
+</div>
       </div>
 
       {/* Newsletter Section */}
-      <div className="bg-gray-100 py-16">
+      <div className="bg-gray-100 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
@@ -474,137 +500,89 @@ const HomePage = () => {
       </div>
 
       {/* Testimonials Section */}
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="container mx-auto px-4 py-1 md:py-1 mb-16">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Patients Say</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">Hear from our satisfied patients about their experience with MediConnect</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-  {/* Testimonial 1 */}
-  <div className="bg-white rounded-2xl shadow-lg p-8 relative">
-    <div className="absolute -top-4 left-8 text-purple-600 text-5xl">"</div>
-    <div className="pt-4">
-      <p className="text-gray-600 mb-6">
-        I was skeptical about online consultations, but MediConnect changed my perception completely. The doctors are professional and the platform is very user-friendly.
-      </p>
-      <div className="flex items-center">
-        
-        <img 
-          src="src/assets/images/himanshu.png" 
-          alt="Himanshu Dubey"
-          className="w-12 h-12 rounded-full mr-4 object-cover" 
-        />
-        <div>
-          <h4 className="font-bold">Himanshu Dubey</h4>
-          <div className="flex text-yellow-400">
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-            <i className="fas fa-star"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-          
-          {/* Testimonial 2 */}
-<div className="bg-white rounded-2xl shadow-lg p-8 relative">
-  <div className="absolute -top-4 left-8 text-purple-600 text-5xl">"</div>
-  <div className="pt-4">
-    <p className="text-gray-600 mb-6">
-      The AI health assistant provided me with useful information when I needed it most. Later, the doctor was able to see my entire medical history which made the consultation very effective.
-    </p>
-    <div className="flex items-center">
-      
-      <img 
-        src="src/assets/images/prachi.jpg" 
-        alt="Prachi Srivastav"
-        className="w-12 h-12 rounded-full mr-4 object-cover" 
-      />
-      <div>
-        <h4 className="font-bold">Prachi Srivastav</h4>
-        <div className="flex text-yellow-400">
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star-half-alt"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-          
-          {/* Testimonial 3 */}
-<div className="bg-white rounded-2xl shadow-lg p-8 relative">
-  <div className="absolute -top-4 left-8 text-purple-600 text-5xl">"</div>
-  <div className="pt-4">
-    <p className="text-gray-600 mb-6">
-      The convenience of booking appointments anytime and the reminder system are fantastic. I never miss my medication now. Thank you MediConnect for making healthcare so accessible!
-    </p>
-    <div className="flex items-center">
-      
-      <img 
-        src="src/assets/images/saitya.png" 
-        alt="Saitya Dhar"
-        className="w-12 h-12 rounded-full mr-4 object-cover" 
-      />
-      <div>
-        <h4 className="font-bold">Saitya Dhar</h4>
-        <div className="flex text-yellow-400">
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-          <i className="fas fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-      {/* Mobile App Section */}
-      <div className="bg-gradient-secondary py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-          <div className="absolute top-0 left-0 w-48 h-48 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-10 animate-blob"></div>
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-yellow-300 rounded-full mix-blend-overlay filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-10 md:mb-0">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Get the MediConnect App</h2>
-              <p className="text-blue-100 mb-8 text-lg">Download our mobile app for a seamless healthcare experience on the go. Available for iOS and Android devices.</p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-black text-white px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-900 transition">
-                  <i className="fab fa-apple text-2xl mr-3"></i>
-                  <div className="text-left">
-                    <div className="text-xs">Download on the</div>
-                    <div className="text-lg font-semibold">App Store</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {/* Testimonial 1 */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 relative">
+            <div className="absolute -top-4 left-8 text-purple-600 text-5xl">"</div>
+            <div className="pt-4">
+              <p className="text-gray-600 mb-6">
+                I was skeptical about online consultations, but MediConnect changed my perception completely. The doctors are professional and the platform is very user-friendly.
+              </p>
+              <div className="flex items-center">
+                <img 
+                  src="src/assets/images/himanshu.png" 
+                  alt="Himanshu Dubey"
+                  className="w-12 h-12 rounded-full mr-4 object-cover" 
+                />
+                <div>
+                  <h4 className="font-bold">Himanshu Dubey</h4>
+                  <div className="flex text-yellow-400">
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
                   </div>
-                </button>
-                <button className="bg-black text-white px-6 py-3 rounded-lg flex items-center justify-center hover:bg-gray-900 transition">
-                  <i className="fab fa-google-play text-2xl mr-3"></i>
-                  <div className="text-left">
-                    <div className="text-xs">Get it on</div>
-                    <div className="text-lg font-semibold">Google Play</div>
-                  </div>
-                </button>
+                </div>
               </div>
             </div>
-            <div className="md:w-1/2 flex justify-center">
-              <div className="relative w-64 h-96">
-                <div className="absolute top-0 left-0 w-full h-full bg-white rounded-3xl shadow-2xl transform -rotate-6"></div>
-                <div className="absolute top-0 left-0 w-full h-full bg-gray-200 rounded-3xl overflow-hidden transform rotate-3">
-                  <img 
-                    src="/api/placeholder/300/550" 
-                    alt="MediConnect mobile app"
-                    className="w-full h-full object-cover"
-                  />
+          </div>
+          
+          {/* Testimonial 2 */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 relative">
+            <div className="absolute -top-4 left-8 text-purple-600 text-5xl">"</div>
+            <div className="pt-4">
+              <p className="text-gray-600 mb-6">
+                The AI health assistant provided me with useful information when I needed it most. Later, the doctor was able to see my entire medical history which made the consultation very effective.
+              </p>
+              <div className="flex items-center">
+                <img 
+                  src="src/assets/images/prachi.jpg" 
+                  alt="Prachi Srivastav"
+                  className="w-12 h-12 rounded-full mr-4 object-cover" 
+                />
+                <div>
+                  <h4 className="font-bold">Prachi Srivastav</h4>
+                  <div className="flex text-yellow-400">
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star-half-alt"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Testimonial 3 */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 relative">
+            <div className="absolute -top-4 left-8 text-purple-600 text-5xl">"</div>
+            <div className="pt-4">
+              <p className="text-gray-600 mb-6">
+                The convenience of booking appointments anytime and the reminder system are fantastic. I never miss my medication now. Thank you MediConnect for making healthcare so accessible!
+              </p>
+              <div className="flex items-center">
+                <img 
+                  src="src/assets/images/saitya.png" 
+                  alt="Saitya Dhar"
+                  className="w-12 h-12 rounded-full mr-4 object-cover" 
+                />
+                <div>
+                  <h4 className="font-bold">Saitya Dhar</h4>
+                  <div className="flex text-yellow-400">
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                  </div>
                 </div>
               </div>
             </div>
